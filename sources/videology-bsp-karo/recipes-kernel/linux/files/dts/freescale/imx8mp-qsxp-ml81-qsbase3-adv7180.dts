@@ -79,7 +79,7 @@
 		mipi_csi0_ep: endpoint {
 			remote-endpoint = <&adv7180_ep_0>;
 			data-lanes = <1>;
-//			csis-hs-settle = <16>;
+			csis-hs-settle = <16>;
 		};
 	};
 };
@@ -97,7 +97,7 @@
 		mipi_csi1_ep: endpoint {
 			remote-endpoint = <&adv7180_ep_1>;
 			data-lanes = <1>;
-//			csis-hs-settle = <16>;
+			csis-hs-settle = <16>;
 		};
 	};
 };
