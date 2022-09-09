@@ -35,6 +35,12 @@
 			};
 		};
 	};
+
+	adv7282M_1: avd7282_cvbs_zb_sd@20 {
+		compatible = "adi,adv7282-m";
+		status = "okay";
+
+	}; 
 };
 
 &i2c2 {
@@ -56,6 +62,12 @@
 			};
 		};
 	};
+
+	adv7282M_0: avd7282_cvbs_zb_sd@20 {
+		compatible = "adi,adv7282-m";
+		status = "okay";
+
+	}; 
 };
 
 &mipi_csi_0 {
