@@ -20,7 +20,7 @@
 	adv7282M_1: adv7282-m@21 {
 		compatible = "adi,adv7282-m";
 		reg = <0x21>;
-		csi_id = <0x00>;
+		csi_id = <0x01>;
 		status = "okay";
 //        mclk = <24000000>;
 //        mclk_source = <0>;
@@ -45,7 +45,7 @@
 	adv7282M_0: adv7282-m@21 {
 		compatible = "adi,adv7282-m";
 		reg = <0x21>;
-		csi_id = <0x01>;
+		csi_id = <0x00>;
 		status = "okay";
 //        mclk = <24000000>;
 //        mclk_source = <0>;
@@ -79,7 +79,7 @@
 		mipi_csi0_ep: endpoint {
 			remote-endpoint = <&adv7180_ep_0>;
 			data-lanes = <1>;
-			csis-hs-settle = <16>;
+//			csis-hs-settle = <16>;
 		};
 	};
 };
@@ -97,7 +97,7 @@
 		mipi_csi1_ep: endpoint {
 			remote-endpoint = <&adv7180_ep_1>;
 			data-lanes = <1>;
-			csis-hs-settle = <16>;
+//			csis-hs-settle = <16>;
 		};
 	};
 };
