@@ -1,0 +1,139 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/*
+ * Copyright (C) 2021 Markus Bauer <mb@karo-electronics.de>
+ *
+ */
+
+/dts-v1/;
+
+#include "imx8mp-qsxp-ml81-qsbase3-raspi-display.dts"
+
+/ {
+	model = "Ka-Ro electronics QSXP-ML81 (NXP i.MX8MP) module on QSBASE3 baseboard with Raspi Display and ADV7282-M decoder";
+};
+
+&dsp {
+	status = "okay";
+};
+
+&i2c3 {
+	adv7282M_1: adv7282-m@21 {
+		compatible = "adi,adv7282-m";
+		reg = <0x21>;
+		csi_id = <0x00>;
+		status = "okay";
+
+		port {
+			adv7180_ep_0: endpoint {
+//				data-lanes = <1 2 3 4>;
+//				clock-lanes = <0>;
+//				link-frequencies = /bits/ 64 <750000000>;
+//				max-lane-frequency = /bits/ 64 <750000000>;
+//				max-pixel-frequency = /bits/ 64 <266000000>;
+//				max-data-rate = /bits/ 64 <0>;
+				remote-endpoint = <&mipi_csi0_ep>;
+			};
+		};
+	};
+};
+
+&i2c2 {
+	adv7282M_0: adv7282-m@21 {
+		compatible = "adi,adv7282-m";
+		reg = <0x21>;
+		csi_id = <0x01>;
+		status = "okay";
+
+		port {
+			adv7180_ep_1: endpoint {
+//				data-lanes = <1 2 3 4>;
+//				clock-lanes = <0>;
+//				link-frequencies = /bits/ 64 <750000000>;
+//				max-lane-frequency = /bits/ 64 <750000000>;
+//				max-pixel-frequency = /bits/ 64 <266000000>;
+//				max-data-rate = /bits/ 64 <0>;
+				remote-endpoint = <&mipi_csi1_ep>;
+			};
+		};
+	};
+};
+
+&mipi_csi_0 {
+	status = "okay";
+	clock-frequency = <266000000>;
+	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_266M>;
+	assigned-clock-rates = <266000000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	port@0 {
+		reg = <0>;
+		mipi_csi0_ep: endpoint {
+			remote-endpoint = <&adv7180_ep_0>;
+			data-lanes = <1>;
+			csis-hs-settle = <16>;
+		};
+	};
+};
+
+&mipi_csi_1 {
+	status = "okay";
+	clock-frequency = <266000000>;
+	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_266M>;
+	assigned-clock-rates = <266000000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	port@1 {
+		reg = <1>;
+		mipi_csi1_ep: endpoint {
+			remote-endpoint = <&adv7180_ep_1>;
+			data-lanes = <1>;
+			csis-hs-settle = <16>;
+		};
+	};
+};
+
+&cameradev {
+	status = "okay";
+};
+
+&isi_0 {
+	status = "disabled";
+
+	cap_device {
+		status = "okay";
+	};
+
+	m2m_device {
+		status = "okay";
+	};
+};
+
+&isi_1 {
+	status = "disabled";
+
+	cap_device {
+		status = "okay";
+	};
+
+	m2m_device {
+		status = "okay";
+	};
+};
+
+&isp_0 {
+	status = "okay";
+};
+
+&isp_1 {
+	status = "okay";
+};
+
+&dewarp {
+	status = "okay";
+};
+
+&vpu_v4l2 {
+	status = "okay";
+};
