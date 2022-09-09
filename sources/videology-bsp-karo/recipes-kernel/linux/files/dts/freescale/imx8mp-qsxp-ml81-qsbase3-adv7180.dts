@@ -22,8 +22,10 @@
 		reg = <0x21>;
 		csi_id = <0x00>;
 		status = "okay";
-		mipi_camera = <1>; /* Needed for v4l2 configuration */
-        cvbs = <1>;
+        mclk = <24000000>;
+        mclk_source = <0>;
+//  	  mipi_camera = <1>; /* Needed for v4l2 configuration */
+//        cvbs = <1>;
 
 		port {
 			adv7180_ep_0: endpoint {
@@ -45,8 +47,10 @@
 		reg = <0x21>;
 		csi_id = <0x01>;
 		status = "okay";
-		mipi_camera = <1>; /* Needed for v4l2 configuration */
-        cvbs = <1>;
+        mclk = <24000000>;
+        mclk_source = <0>;
+//		mipi_camera = <1>; /* Needed for v4l2 configuration */
+//        cvbs = <1>;
 		
 		port {
 			adv7180_ep_1: endpoint {
