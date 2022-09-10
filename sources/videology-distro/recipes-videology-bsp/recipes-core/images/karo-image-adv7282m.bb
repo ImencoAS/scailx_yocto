@@ -21,7 +21,6 @@ IMAGE_INSTALL_append = " \
         packagegroup-fsl-gstreamer1.0 \
         packagegroup-fsl-gstreamer1.0-full \
 "
-#        kernel-module-basler-camera \
 
 # IMAGE_INSTALL_remove = "busybox"
 
@@ -30,7 +29,5 @@ IMAGE_INSTALL_append_mx8mp = " \
         isp-imx \
         packagegroup-imx-isp \
 "
-#        kernel-module-isp-vvcam \
-#        basler-camera \
 
 IMAGE_FEATURES_remove = "read-only-rootfs"
