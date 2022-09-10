@@ -1,24 +1,24 @@
-From 54528c02a6748ff7223e65dc091f7f4d61c88d38 Mon Sep 17 00:00:00 2001
+From 002ee7272b7894c36cc2ff6642e552a7a8fa7624 Mon Sep 17 00:00:00 2001
 From: hhdrake <hans.hageman@hotmail.com>
-Date: Sun, 11 Sep 2022 00:03:32 +0200
-Subject: [PATCH] print ov560_mipi_v2
+Date: Sun, 11 Sep 2022 00:24:40 +0200
+Subject: [PATCH] __FILE__
 
 ---
- drivers/media/platform/mxc/capture/ov5640_mipi_v2.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/platform/mxc/capture/ov5640_mipi_v2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/media/platform/mxc/capture/ov5640_mipi_v2.c b/drivers/media/platform/mxc/capture/ov5640_mipi_v2.c
-index eac8b12360dc..9cd5d4f1240b 100644
+index 9cd5d4f1240b..5a1d6fa87466 100644
 --- a/drivers/media/platform/mxc/capture/ov5640_mipi_v2.c
 +++ b/drivers/media/platform/mxc/capture/ov5640_mipi_v2.c
-@@ -1702,6 +1702,8 @@ static int ov5640_probe(struct i2c_client *client,
+@@ -1702,7 +1702,7 @@ static int ov5640_probe(struct i2c_client *client,
  	u8 chip_id_high, chip_id_low;
  	struct ov5640 *sensor;
  
-+printk("HH %s >>>> OV5640_MIPI\n", __file__);
-+
+-printk("HH %s >>>> OV5640_MIPI\n", __file__);
++printk("HH %s >>>> OV5640_MIPI\n", __FILE__);
+ 
  	sensor = devm_kzalloc(dev, sizeof(*sensor), GFP_KERNEL);
  	if (!sensor)
- 		return -ENOMEM;
 -- 
 2.25.1
