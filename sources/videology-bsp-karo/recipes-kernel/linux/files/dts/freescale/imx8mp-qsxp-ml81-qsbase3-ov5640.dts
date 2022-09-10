@@ -22,18 +22,20 @@
 		reg = <0x3c>;
 		status = "okay";
 		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_csi_pwn>, <&pinctrl_csi_rst>;
-		clocks = <&clk IMX8MM_CLK_CLKO1_DIV>;
-		clock-names = "csi_mclk";
-		assigned-clocks = <&clk IMX8MM_CLK_CLKO1_SRC>,
-						  <&clk IMX8MM_CLK_CLKO1_DIV>;
-		assigned-clock-parents = <&clk IMX8MM_CLK_24M>;
-		assigned-clock-rates = <0>, <24000000>;
+		pinctrl-0 = <&pinctrl_csi0_pwn>, <&pinctrl_csi0_rst>, <&pinctrl_csi_mclk>;
+		clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
+		clock-names = "xclk";
+		assigned-clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
+		assigned-clock-parents = <&clk IMX8MP_CLK_24M>;
+		assigned-clock-rates = <24000000>;
 		csi_id = <0>;
-		pwn-gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>;
+		powerdown-gpios = <&gpio4 1 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio4 0 GPIO_ACTIVE_LOW>;
 		mclk = <24000000>;
 		mclk_source = <0>;
-
+		mipi_csi;
+		status = "okay";
+ 
 		port {
 			ov5640_mipi1_ep: endpoint {
 				remote-endpoint = <&mipi1_sensor_ep>;
@@ -43,46 +45,10 @@
 };
 
 &i2c2 {
-	ov5640_mipi0: ov5640_mipi@3c {
-		compatible = "ovti,ov5640_mipi";
-		reg = <0x3c>;
-		status = "okay";
-		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_csi_pwn>, <&pinctrl_csi_rst>;
-		clocks = <&clk IMX8MM_CLK_CLKO1_DIV>;
-		clock-names = "csi_mclk";
-		assigned-clocks = <&clk IMX8MM_CLK_CLKO1_SRC>,
-						  <&clk IMX8MM_CLK_CLKO1_DIV>;
-		assigned-clock-parents = <&clk IMX8MM_CLK_24M>;
-		assigned-clock-rates = <0>, <24000000>;
-		csi_id = <0>;
-		pwn-gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>;
-		mclk = <24000000>;
-		mclk_source = <0>;
-
-		port {
-			ov5640_mipi0_ep: endpoint {
-				remote-endpoint = <&mipi0_sensor_ep>;
-				};
-			};
-	};};
+};
 
 &mipi_csi_0 {
-	status = "okay";
-	clock-frequency = <266000000>;
-	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_266M>;
-	assigned-clock-rates = <266000000>;
-	#address-cells = <1>;
-	#size-cells = <0>;
-
-	port@0 {
-		reg = <0>;
-		mipi0_sensor_ep: endpoint {
-			remote-endpoint = <&ov5640_mipi0_ep>;
-			data-lanes = <1>;
-			csis-hs-settle = <16>;
-		};
-	};
+	status = "disabled";
 };
 
 &mipi_csi_1 {
@@ -132,7 +98,7 @@
 };
 
 &isp_0 {
-	status = "okay";
+	status = "disabled";
 };
 
 &isp_1 {
