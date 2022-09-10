@@ -1,0 +1,148 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/*
+ * Copyright (C) 2021 Markus Bauer <mb@karo-electronics.de>
+ *
+ */
+
+/dts-v1/;
+
+#include "imx8mp-qsxp-ml81-qsbase3-raspi-display.dts"
+
+/ {
+	model = "Ka-Ro electronics QSXP-ML81 (NXP i.MX8MP) module on QSBASE3 baseboard with Raspi Display and OV5640";
+};
+
+&dsp {
+	status = "okay";
+};
+
+&i2c3 {
+	ov5640_mipi1: ov5640_mipi@3c {
+		compatible = "ovti,ov5640_mipi";
+		reg = <0x3c>;
+		status = "okay";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_csi_pwn>, <&pinctrl_csi_rst>;
+		clocks = <&clk IMX8MM_CLK_CLKO1_DIV>;
+		clock-names = "csi_mclk";
+		assigned-clocks = <&clk IMX8MM_CLK_CLKO1_SRC>,
+						  <&clk IMX8MM_CLK_CLKO1_DIV>;
+		assigned-clock-parents = <&clk IMX8MM_CLK_24M>;
+		assigned-clock-rates = <0>, <24000000>;
+		csi_id = <0>;
+		pwn-gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>;
+		mclk = <24000000>;
+		mclk_source = <0>;
+
+		port {
+			ov5640_mipi1_ep: endpoint {
+				remote-endpoint = <&mipi1_sensor_ep>;
+				};
+			};
+	};
+};
+
+&i2c2 {
+	ov5640_mipi0: ov5640_mipi@3c {
+		compatible = "ovti,ov5640_mipi";
+		reg = <0x3c>;
+		status = "okay";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_csi_pwn>, <&pinctrl_csi_rst>;
+		clocks = <&clk IMX8MM_CLK_CLKO1_DIV>;
+		clock-names = "csi_mclk";
+		assigned-clocks = <&clk IMX8MM_CLK_CLKO1_SRC>,
+						  <&clk IMX8MM_CLK_CLKO1_DIV>;
+		assigned-clock-parents = <&clk IMX8MM_CLK_24M>;
+		assigned-clock-rates = <0>, <24000000>;
+		csi_id = <0>;
+		pwn-gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>;
+		mclk = <24000000>;
+		mclk_source = <0>;
+
+		port {
+			ov5640_mipi0_ep: endpoint {
+				remote-endpoint = <&mipi0_sensor_ep>;
+				};
+			};
+	};};
+
+&mipi_csi_0 {
+	status = "okay";
+	clock-frequency = <266000000>;
+	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_266M>;
+	assigned-clock-rates = <266000000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	port@0 {
+		reg = <0>;
+		mipi0_sensor_ep: endpoint {
+			remote-endpoint = <&ov5640_mipi0_ep>;
+			data-lanes = <1>;
+			csis-hs-settle = <16>;
+		};
+	};
+};
+
+&mipi_csi_1 {
+	status = "okay";
+	clock-frequency = <266000000>;
+	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_266M>;
+	assigned-clock-rates = <266000000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	port@1 {
+		reg = <1>;
+		mipi1_sensor_ep: endpoint {
+			remote-endpoint = <&ov5640_mipi1_ep>;
+			data-lanes = <1>;
+			csis-hs-settle = <16>;
+		};
+	};
+};
+
+&cameradev {
+	status = "okay";
+};
+
+&isi_0 {
+	status = "disabled";
+
+	cap_device {
+		status = "okay";
+	};
+
+	m2m_device {
+		status = "okay";
+	};
+};
+
+&isi_1 {
+	status = "disabled";
+
+	cap_device {
+		status = "okay";
+	};
+
+	m2m_device {
+		status = "okay";
+	};
+};
+
+&isp_0 {
+	status = "okay";
+};
+
+&isp_1 {
+	status = "okay";
+};
+
+&dewarp {
+	status = "okay";
+};
+
+&vpu_v4l2 {
+	status = "okay";
+};
