@@ -17,55 +17,104 @@
 };
 
 &i2c3 {
-	ov5640_mipi1: ov5640_mipi@3c {
-		compatible = "ovti,ov5640_mipi";
+	ov5640_mipi_0: ov5640_mipi@3c {
+		compatible = "ovti,ov5640";
 		reg = <0x3c>;
+	
 		pinctrl-names = "default";
-//		pinctrl-0 = <&pinctrl_csi0_pwn>, <&pinctrl_csi0_rst>, <&pinctrl_csi_mclk>;
-		clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
-		clock-names = "csi_mclk";
-		assigned-clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
+		clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO1>;
+		clock-names = "xclk";
+		assigned-clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO1>;
 		assigned-clock-parents = <&clk IMX8MP_CLK_24M>;
 		assigned-clock-rates = <24000000>;
-		csi_id = <0>;
-		pwn-gpios = <&gpio4 1 GPIO_ACTIVE_HIGH>;
-		rst-gpios = <&gpio4 0 GPIO_ACTIVE_LOW>;
+		csi_id = <1>;
+//		powerdown-gpios = <&gpio4 19 GPIO_ACTIVE_HIGH>;
+//		reset-gpios = <&gpio4 18 GPIO_ACTIVE_LOW>;
 		mclk = <24000000>;
-		mclk_source = <0>;
-		mipi_csi;
+		mclk_source = <0>;	
+/* 		virtual-channel;	*/	
+/* 		mipi_csi;		*/
+		
 		status = "okay";
- 
-		port {
-			ov5640_mipi1_ep: endpoint {
-				remote-endpoint = <&mipi1_sensor_ep>;
-				};
+		
+		port@1 {
+			reg=<0x01>;
+			ov5640_mipi_1_ep: endpoint {
+			remote-endpoint = <&mipi_1_sensor_ep>;
+			bus-type = <4>;
 			};
+		};
 	};
+
 };
 
 &i2c2 {
-};
+	ov5640_mipi_1: ov5640_mipi@3c {
+		compatible = "ovti,ov5640";
+		reg = <0x3c>;
+	
+		pinctrl-names = "default";
+		clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO1>;
+		clock-names = "xclk";
+		assigned-clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO1>;
+		assigned-clock-parents = <&clk IMX8MP_CLK_24M>;
+		assigned-clock-rates = <24000000>;
+		csi_id = <0>;
+//		powerdown-gpios = <&gpio4 19 GPIO_ACTIVE_HIGH>;
+//		reset-gpios = <&gpio4 18 GPIO_ACTIVE_LOW>;
+		mclk = <24000000>;
+		mclk_source = <0>;	
+//		virtual-channel;		
+//		mipi_csi;
+		
+		status = "okay";
+		
+		port@0 {
+			reg=<0x00>;
+			ov5640_mipi_0_ep: endpoint {
+			remote-endpoint = <&mipi_0_sensor_ep>;
+			bus-type = <4>;
+			};
+		};
+	};};
 
 &mipi_csi_0 {
-	status = "disabled";
+	status = "okay";
+	clock-frequency = <594000000>; 
+
+	port@0 {
+		reg=<0x00>;
+		mipi_0_sensor_ep: endpoint {
+			remote-endpoint = <&ov5640_mipi_0_ep>;
+			bus-width = <4>;
+			data-lanes = <4>;
+			csis-hs-settle = <13>;
+			csis-clk-settle = <2>;
+			csis-wclk;
+			bus-type = <4>;
+		};
+	};
 };
 
 &mipi_csi_1 {
 	status = "okay";
-	clock-frequency = <266000000>;
-	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_266M>;
-	assigned-clock-rates = <266000000>;
-	#address-cells = <1>;
-	#size-cells = <0>;
+//	clock-frequency = <297000000>; 
+	clock-frequency = <594000000>; 
 
 	port@1 {
-		reg = <1>;
-		mipi1_sensor_ep: endpoint {
-			remote-endpoint = <&ov5640_mipi1_ep>;
-			data-lanes = <1>;
-			csis-hs-settle = <16>;
+		reg=<0x01>;
+		mipi_1_sensor_ep: endpoint {
+			remote-endpoint = <&ov5640_mipi_1_ep>;
+			bus-width = <4>;
+			data-lanes = <4>;
+			csis-hs-settle = <13>;
+			csis-clk-settle = <2>;
+			csis-wclk;
+			bus-type = <4>;
 		};
 	};
+
+
 };
 
 &cameradev {
