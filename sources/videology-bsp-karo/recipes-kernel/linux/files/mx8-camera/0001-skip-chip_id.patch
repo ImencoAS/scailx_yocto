@@ -1,0 +1,40 @@
+From dfdbcd513dcc7e7a32558fc229a1b2845b134384 Mon Sep 17 00:00:00 2001
+From: hhdrake <hans.hageman@hotmail.com>
+Date: Sun, 11 Sep 2022 12:39:19 +0200
+Subject: [PATCH] skip chip_id
+
+---
+ drivers/media/i2c/ov5640.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index d56d9ba0cb20..bd4582b2c4c8 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -3259,16 +3259,18 @@ printk("HH - %s v4l2_i2c_subdev\n", __func__);
+ 	mutex_init(&sensor->lock);
+ 
+ 	ret = ov5640_check_chip_id(sensor);
+-	if (ret)
+-		goto entity_cleanup;
++//	if (ret)
++//		goto entity_cleanup;
+ 
+ 	ret = ov5640_init_controls(sensor);
+-	if (ret)
+-		goto entity_cleanup;
++//	if (ret)
++//		goto entity_cleanup;
+ 
+ 	ret = v4l2_async_register_subdev_sensor_common(&sensor->sd);
+-	if (ret)
+-		goto free_ctrls;
++//	if (ret)
++//		goto free_ctrls;
++
++printk("HH - %s %s <<<<<<<<<<\n", __FILE__, __func__);
+ 
+ 	return 0;
+ 
+-- 
+2.25.1
