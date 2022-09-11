@@ -21,7 +21,7 @@ IMAGE_INSTALL_append = " \
         packagegroup-fsl-tools-gpu-external \
         packagegroup-imx-ml \
         python3-pip \
-        python-smbus \
+        python3-smbus \
         tzdata \
 "
 
