@@ -17,7 +17,7 @@ git clone git@github.com:VideologyInc/scailx_yocto.git
 cd scailx_yocto
 
 # build using kas
-kas build scail.yaml
+kas build scailx.yaml
 ```
 To enter the bitbake environment to perform other bitbake tasks, use `kas shell`:
 ```
@@ -35,7 +35,7 @@ git clone git@github.com:VideologyInc/scailx_yocto.git
 cd scailx_yocto
 
 # build using kas-container
-kas-container build scail.yaml
+kas-container build scailx.yaml
 ```
 To enter the bitbake environment to perform other bitbake tasks, use `kas shell`:
 ```

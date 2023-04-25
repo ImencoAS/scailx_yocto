@@ -5,3 +5,15 @@ sstate-cache*
 .repo*
 bitbake.lock
 bitbake-cookerdaemon.log
+
+poky
+meta-virtualization
+meta-qt6
+meta-openembedded
+meta-browser
+meta-clang
+meta-freescale
+meta-freescale-3rdparty
+meta-freescale-distro
+meta-imx
+meta-nxp-demo-experience
