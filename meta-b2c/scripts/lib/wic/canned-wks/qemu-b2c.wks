@@ -1,0 +1,2 @@
+
+part / --source rootfs --fstype=ext4 --label root --align 4096 --size 10G

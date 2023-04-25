@@ -1,0 +1,41 @@
+header:
+  version: 12
+  includes:
+    - kas/kirkstone.yml
+
+machine: qemuarm64
+distro: poky
+target: core-image-minimal
+local_conf_header:
+  Development configuration: |
+    IMAGE_FEATURES:append = "empty-root-password"
+  System configuration: |
+    DISTRO_FEATURES:append = " systemd"
+    VIRTUAL-RUNTIME_init_manager = "systemd"
+    DISTRO_FEATURES_BACKFILL_CONSIDERED = "sysvinit"
+  Container base configuration: |
+    DISTRO_FEATURES:append = " virtualization"
+    IMAGE_INSTALL:append = " packagegroup-podman"
+repos:
+  b2c:
+    layers:
+      meta-b2c:
+  poky:
+    url: "https://git.yoctoproject.org/poky"
+    refspec: kirkstone
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+  meta-virtualization:
+    url: git://git.yoctoproject.org/meta-virtualization
+    refspec: kirkstone
+  meta-openembedded:
+    url: https://github.com/openembedded/meta-openembedded.git
+    refspec: kirkstone
+    layers:
+      meta-oe:
+      meta-networking:
+      meta-filesystems:
+      meta-python:
+      meta-initramfs:
