@@ -1,0 +1,11 @@
+# scailx yocto for Videology
+#
+# Authors:
+#   Kobus Goosen
+#
+# SPDX-License-Identifier: MIT
+#
+header:
+  version: 11
+  includes:
+    - scailx.yaml
