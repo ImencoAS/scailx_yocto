@@ -1,0 +1,50 @@
+# scailx yocto for Videology
+#
+# Authors:
+#   Kobus Goosen
+#
+# SPDX-License-Identifier: MIT
+#
+header:
+  version: 11
+  includes:
+    # - nxp-imx.yaml
+    - kas/langdale.yml
+    - updater_lang.yaml
+    - kas/layers/meta-oe.yml
+    - kas/layers/meta-multimedia.yml
+build_system: oe
+
+repos:
+  scailx:
+    layers:
+      videology-bsp-karo:
+      videology-distro:
+
+bblayers_conf_header:
+  standard: |
+    LCONF_VERSION = "6"
+    BSPDIR := "${@os.path.abspath(os.path.dirname(d.getVar('FILE', True)) + '/../..')}"
+    
+# distro: fsl-imx-xwayland
+distro: poky
+machine: qemux86-64
+# machine: mx8-camera
+target: core-image-minimal
+
+local_conf_header:
+  custom-local-conf: |
+    ACCEPT_FSL_EULA = "1"
+    # Switch to Debian packaging and include package-management in the image
+    DISTRO_FEATURES:append = " virtualization"
+  folders: |
+    BB_GENERATE_MIRROR_TARBALLS = "1"
+  rmwork: |
+    INHERIT += "rm_work"
+  other: |
+    EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+    USER_CLASSES ?= "buildstats"
+    PATCHRESOLVE = "noop"
+  buildinfo: |
+    # INHERIT += " image-buildinfo"
+    # IMAGE_BUILDINFO_VARS:append = " BUILD_SYS COMMON_FEATURES DEFAULTTUNE DISTRO DISTRO_FEATURES DISTRO_NAME DISTRO_VERSION IMAGE_BASENAME IMAGE_FEATURES KERNEL_DEVICETREE MACHINE MACHINEOVERRIDES MACHINE_FEATURES NATIVELSBSTRING PREFERRED_PROVIDER_virtual/bootloader PREFERRED_PROVIDER_virtual/kernel PREFERRED_PROVIDER_virtual/mesa SERIAL_CONSOLE SOC_FAMILY UBOOT_MACHINE"

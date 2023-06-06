@@ -1,0 +1,73 @@
+header:
+    version: 3
+
+target: core-image-minimal
+repos:
+  bitbake.git:
+    path: layers/openembedded-core/bitbake
+    refspec: 0c6f86b60cfba67c20733516957c0a654eb2b44c
+    url: https://github.com/openembedded/bitbake.git
+  meta-arm:
+    path: layers/meta-arm
+    refspec: 96aad3b29aa7a5ee4df5cf617a6336e5218fa9bd
+    url: https://git.yoctoproject.org/git/meta-arm
+  meta-freescale-3rdparty.git:
+    path: layers/meta-freescale-3rdparty
+    refspec: bf12dc09d88a53d7345377de277fbcc20ed87235
+    url: https://github.com/Freescale/meta-freescale-3rdparty.git
+  meta-freescale-distro.git:
+    path: layers/meta-freescale-distro
+    refspec: d5bbb487b2816dfc74984a78b67f7361ce404253
+    url: https://github.com/Freescale/meta-freescale-distro.git
+  meta-freescale.git:
+    path: layers/meta-freescale
+    refspec: 82cbf4e5adac1017adc1e4a2ce056c57b3148ba0
+    url: https://github.com/Freescale/meta-freescale.git
+  meta-openembedded.git:
+    path: layers/meta-openembedded
+    refspec: 571e36e20e9d1f27af0eb4545291beeb64f280e2
+    url: https://github.com/openembedded/meta-openembedded.git
+  meta-security:
+    path: layers/meta-security
+    refspec: cc20e2af2ae1c74e306f6c039c4963457c4cbd0f
+    url: https://git.yoctoproject.org/git/meta-security
+  meta-ti:
+    path: layers/meta-ti
+    refspec: 6fa3a588b7a1250a756c06e94fe6fdd28a57a8a6
+    url: https://git.yoctoproject.org/git/meta-ti
+  meta-toradex-bsp-common.git:
+    path: layers/meta-toradex-bsp-common
+    refspec: 1c5d0d1d763366eabbacaeb40fb2813e9488f7c3
+    url: https://git.toradex.com/meta-toradex-bsp-common.git
+  meta-toradex-distro.git:
+    path: layers/meta-toradex-distro
+    refspec: fda3e56a06f7d3cef7f73b174bb68c4f1074c26e
+    url: https://git.toradex.com/meta-toradex-distro.git
+  meta-toradex-nxp.git:
+    path: layers/meta-toradex-nxp
+    refspec: 8f9e36d0af54b568a2eada60860605f4899daaa4
+    url: https://git.toradex.com/meta-toradex-nxp.git
+  meta-toradex-ti.git:
+    path: layers/meta-toradex-ti
+    refspec: 4cd23e818ca48a5482ee6ecd877ce1f916531db5
+    url: https://git.toradex.com/meta-toradex-ti.git
+  meta-toradex-torizon:
+    path: layers/meta-toradex-torizon
+    refspec: 3f03c352e7d12987eb47edb4ae7a09cae6b3f506
+    url: https://github.com/toradex/meta-toradex-torizon
+  meta-updater:
+    path: layers/meta-updater
+    refspec: ffbbc2b9f46a60bd2d51be53079252f8e6304a8b
+    url: https://github.com/uptane/meta-updater
+  meta-virtualization:
+    path: layers/meta-virtualization
+    refspec: a7413c5d7568ce91b809ed11f84305b1afb468bb
+    url: https://git.yoctoproject.org/git/meta-virtualization
+  meta-yocto:
+    path: layers/meta-yocto
+    refspec: 15fd5faf510329a8022b60c53576eb76451d4358
+    url: https://git.yoctoproject.org/git/meta-yocto
+  openembedded-core.git:
+    path: layers/openembedded-core
+    refspec: b67e714b367a08fdeeeff68c2d9495ec9bc07304
+    url: https://github.com/openembedded/openembedded-core.git

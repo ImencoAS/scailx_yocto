@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="githf" fetch="https://github.com/Freescale" alias="repo"/>
+  <remote name="oe" fetch="https://github.com/openembedded" alias="repo"/>
+  <remote name="tdx" fetch="https://git.toradex.com" alias="repo"/>
+  <remote name="toradex-torizon" fetch="https://github.com/toradex" alias="repo"/>
+  <remote name="uptane" fetch="https://github.com/uptane" alias="repo"/>
+  <remote name="yocto" fetch="https://git.yoctoproject.org/git" alias="repo"/>
+  
+  <default sync-j="4"/>
+  
+  <project name="bitbake.git" path="layers/openembedded-core/bitbake" remote="oe" revision="0c6f86b60cfba67c20733516957c0a654eb2b44c" upstream="2.0"/>
+  <project name="meta-arm" path="layers/meta-arm" remote="yocto" revision="96aad3b29aa7a5ee4df5cf617a6336e5218fa9bd" upstream="kirkstone"/>
+  <project name="meta-freescale-3rdparty.git" path="layers/meta-freescale-3rdparty" remote="githf" revision="bf12dc09d88a53d7345377de277fbcc20ed87235" upstream="kirkstone"/>
+  <project name="meta-freescale-distro.git" path="layers/meta-freescale-distro" remote="githf" revision="d5bbb487b2816dfc74984a78b67f7361ce404253" upstream="kirkstone"/>
+  <project name="meta-freescale.git" path="layers/meta-freescale" remote="githf" revision="82cbf4e5adac1017adc1e4a2ce056c57b3148ba0" upstream="kirkstone"/>
+  <project name="meta-openembedded.git" path="layers/meta-openembedded" remote="oe" revision="571e36e20e9d1f27af0eb4545291beeb64f280e2" upstream="kirkstone"/>
+  <project name="meta-security" path="layers/meta-security" remote="yocto" revision="cc20e2af2ae1c74e306f6c039c4963457c4cbd0f"/>
+  <project name="meta-ti" path="layers/meta-ti" remote="yocto" revision="6fa3a588b7a1250a756c06e94fe6fdd28a57a8a6" upstream="kirkstone"/>
+  <project name="meta-toradex-bsp-common.git" path="layers/meta-toradex-bsp-common" remote="tdx" revision="1c5d0d1d763366eabbacaeb40fb2813e9488f7c3" upstream="kirkstone-6.x.y"/>
+  <project name="meta-toradex-distro.git" path="layers/meta-toradex-distro" remote="tdx" revision="fda3e56a06f7d3cef7f73b174bb68c4f1074c26e"/>
+  <project name="meta-toradex-nxp.git" path="layers/meta-toradex-nxp" remote="tdx" revision="8f9e36d0af54b568a2eada60860605f4899daaa4" upstream="kirkstone-6.x.y"/>
+  <project name="meta-toradex-ti.git" path="layers/meta-toradex-ti" remote="tdx" revision="4cd23e818ca48a5482ee6ecd877ce1f916531db5" upstream="kirkstone-6.x.y"/>
+  <project name="meta-toradex-torizon" path="layers/meta-toradex-torizon" remote="toradex-torizon" revision="3f03c352e7d12987eb47edb4ae7a09cae6b3f506">
+    <linkfile src="scripts/setup-environment" dest="setup-environment"/>
+  </project>
+  <project name="meta-updater" path="layers/meta-updater" remote="uptane" revision="ffbbc2b9f46a60bd2d51be53079252f8e6304a8b"/>
+  <project name="meta-virtualization" path="layers/meta-virtualization" remote="yocto" revision="a7413c5d7568ce91b809ed11f84305b1afb468bb"/>
+  <project name="meta-yocto" path="layers/meta-yocto" remote="yocto" revision="15fd5faf510329a8022b60c53576eb76451d4358" upstream="kirkstone"/>
+  <project name="openembedded-core.git" path="layers/openembedded-core" remote="oe" revision="b67e714b367a08fdeeeff68c2d9495ec9bc07304" upstream="kirkstone"/>
+</manifest>
