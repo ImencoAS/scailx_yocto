@@ -1,0 +1,23 @@
+From d14ccf32515de9ddc69c4b02dae9d6fee3f5ff4a Mon Sep 17 00:00:00 2001
+From: Kobus Goosen <kgoosen@videologyinc.com>
+Date: Tue, 30 May 2023 13:31:43 +0200
+Subject: [PATCH] debug_media_imx
+
+---
+ drivers/staging/media/imx/Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/staging/media/imx/Makefile b/drivers/staging/media/imx/Makefile
+index c05ec4ba3370..d422bf3a1526 100644
+--- a/drivers/staging/media/imx/Makefile
++++ b/drivers/staging/media/imx/Makefile
+@@ -34,3 +34,5 @@ obj-$(CONFIG_IMX8_MEDIA_DEVICE)   += imx8-media-dev.o
+ obj-$(CONFIG_IMX8_PARALLEL_CSI)	  += imx8-parallel-csi.o
+ 
+ obj-y += hdmirx/
++
++EXTRA_CFLAGS += -DDEBUG
+\ No newline at end of file
+-- 
+2.34.1
+
