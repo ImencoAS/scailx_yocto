@@ -15,10 +15,9 @@ IMAGE_FEATURES += " \
     tools-profile \
     tools-sdk \
     package-management \
-    splash \
     nfs-server \
     tools-debug \
-    ssh-server-dropbear \
+    ssh-server-openssh \
     tools-testapps \
     hwcodecs \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston', \
@@ -69,9 +68,6 @@ IMAGE_INSTALL += " \
     gst-variable-rtsp-server \
     kernel-module-crosslink-lvds2mipi \
 "
-
-IMAGE_FEATURES:remove = "splash ssh-server-dropbear"
-IMAGE_FEATURES += "ssh-server-openssh"
 
 CORE_IMAGE_EXTRA_INSTALL:remove = " \
     packagegroup-tools-bluetooth \

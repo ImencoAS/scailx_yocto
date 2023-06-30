@@ -1,0 +1,259 @@
+From 0d6903bd6d38e43e02e64fa37e839152f54166fb Mon Sep 17 00:00:00 2001
+From: Kobus Goosen <kgoosen@videologyinc.com>
+Date: Fri, 30 Jun 2023 16:49:23 +0200
+Subject: [PATCH] chnage to evk dts
+
+---
+ arch/arm/dts/imx8mp-evk-u-boot.dtsi | 20 +++++++
+ arch/arm/dts/imx8mp-evk.dts         | 82 ++++++++++++++---------------
+ 2 files changed, 62 insertions(+), 45 deletions(-)
+
+diff --git a/arch/arm/dts/imx8mp-evk-u-boot.dtsi b/arch/arm/dts/imx8mp-evk-u-boot.dtsi
+index 203d05e66e..197191198e 100644
+--- a/arch/arm/dts/imx8mp-evk-u-boot.dtsi
++++ b/arch/arm/dts/imx8mp-evk-u-boot.dtsi
+@@ -152,6 +152,22 @@
+ 	u-boot,dm-spl;
+ };
+
++&pinctrl_i2c3 {
++	u-boot,dm-spl;
++};
++
++&pinctrl_i2c3_gpio {
++	u-boot,dm-spl;
++};
++
++&pinctrl_i2c5 {
++	u-boot,dm-spl;
++};
++
++&pinctrl_i2c5_gpio {
++	u-boot,dm-spl;
++};
++
+ &usdhc1 {
+ 	u-boot,dm-spl;
+ 	assigned-clocks = <&clk IMX8MP_CLK_USDHC1>;
+@@ -189,6 +205,10 @@
+ 	u-boot,dm-spl;
+ };
+
++&{/soc@0/bus@30800000/i2c@30a40000/gpio@20} {
++	u-boot,dm-spl;
++};
++
+ &pinctrl_pmic {
+ 	u-boot,dm-spl;
+ };
+diff --git a/arch/arm/dts/imx8mp-evk.dts b/arch/arm/dts/imx8mp-evk.dts
+index 61e8a70196..a577d7493c 100644
+--- a/arch/arm/dts/imx8mp-evk.dts
++++ b/arch/arm/dts/imx8mp-evk.dts
+@@ -22,8 +22,7 @@
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_gpio_led>;
+
+-		status {
+-			label = "yellow:status";
++		led-0 {
+ 			gpios = <&gpio3 16 GPIO_ACTIVE_HIGH>;
+ 			default-state = "on";
+ 		};
+@@ -31,8 +30,8 @@
+
+ 	memory@40000000 {
+ 		device_type = "memory";
+-		reg = <0x0 0x40000000 0 0xc0000000>,
+-		      <0x1 0x00000000 0 0xc0000000>;
++		reg = <0x0 0x40000000 0 0x40000000>,
++		      <0x1 0x00000000 0 0x40000000>;
+ 	};
+
+ 	reg_can1_stby: regulator-can1-stby {
+@@ -42,8 +41,8 @@
+ 		pinctrl-0 = <&pinctrl_flexcan1_reg>;
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio5 5 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
++		// gpio = <&gpio5 5 GPIO_ACTIVE_HIGH>;
++		// enable-active-high;
+ 	};
+
+ 	reg_can2_stby: regulator-can2-stby {
+@@ -53,8 +52,8 @@
+ 		pinctrl-0 = <&pinctrl_flexcan2_reg>;
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio4 27 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
++		// gpio = <&gpio4 27 GPIO_ACTIVE_HIGH>;
++		// enable-active-high;
+ 	};
+
+ 	reg_usdhc2_vmmc: regulator-usdhc2 {
+@@ -64,8 +63,8 @@
+ 		regulator-name = "VSD_3V3";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio2 19 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
++		// gpio = <&gpio2 19 GPIO_ACTIVE_HIGH>;
++		// enable-active-high;
+ 		startup-delay-us = <100>;
+ 		off-on-delay-us = <12000>;
+ 	};
+@@ -151,7 +150,7 @@
+ 	phy-mode = "rgmii-id";
+ 	phy-handle = <&ethphy1>;
+ 	fsl,magic-packet;
+-	status = "okay";
++	status = "disabled";
+
+ 	mdio {
+ 		#address-cells = <1>;
+@@ -170,7 +169,7 @@
+ 	pinctrl-0 = <&pinctrl_flexspi0>;
+ 	status = "okay";
+
+-	flash0: mt25qu256aba@0 {
++	flash0: flash@0 {
+ 		reg = <0>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
+@@ -193,18 +192,11 @@
+ 	pmic: pca9450@25 {
+ 		reg = <0x25>;
+ 		compatible = "nxp,pca9450c";
+-		/* PMIC PCA9450 PMIC_nINT GPIO1_IO3 */
+-		pinctrl-0 = <&pinctrl_pmic>;
+-		gpio_intr = <&gpio1 3 GPIO_ACTIVE_LOW>;
+
+ 		regulators {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+
+-			pca9450,pmic-buck2-uses-i2c-dvs;
+-			/* Run/Standby voltage */
+-			pca9450,pmic-buck2-dvs-voltage = <950000>, <850000>;
+-
+ 			buck1_reg: regulator@0 {
+ 				reg = <0>;
+ 				regulator-compatible = "buck1";
+@@ -225,27 +217,18 @@
+ 				regulator-ramp-delay = <3125>;
+ 			};
+
+-			buck4_reg: regulator@3 {
+-				reg = <3>;
+-				regulator-compatible = "buck4";
++			buck3_reg: regulator@2 {
++				reg = <2>;
++				regulator-compatible = "buck3";
+ 				regulator-min-microvolt = <600000>;
+-				regulator-max-microvolt = <3400000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			buck5_reg: regulator@4 {
+-				reg = <4>;
+-				regulator-compatible = "buck5";
+-				regulator-min-microvolt = <600000>;
+-				regulator-max-microvolt = <3400000>;
++				regulator-max-microvolt = <2187500>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+
+-			buck6_reg: regulator@5 {
+-				reg = <5>;
+-				regulator-compatible = "buck6";
++			buck4_reg: regulator@3 {
++				reg = <3>;
++				regulator-compatible = "buck4";
+ 				regulator-min-microvolt = <600000>;
+ 				regulator-max-microvolt = <3400000>;
+ 				regulator-boot-on;
+@@ -465,6 +448,7 @@
+ 	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
+ 	cd-gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
+ 	vmmc-supply = <&reg_usdhc2_vmmc>;
++	no-1-8-v;
+ 	bus-width = <4>;
+ 	status = "okay";
+ };
+@@ -487,8 +471,6 @@
+ };
+
+ &iomuxc {
+-	pinctrl-names = "default";
+-
+ 	pinctrl_eqos: eqosgrp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_ENET_MDC__ENET_QOS_MDC	0x3
+@@ -593,34 +575,48 @@
+ 		>;
+ 	};
+
+-	pinctrl_i2c1_gpio: i2c1grp-gpio {
++	pinctrl_i2c5: i2c5grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SPDIF_TX__I2C5_SCL			0x400001c3
++			MX8MP_IOMUXC_SPDIF_RX__I2C5_SDA			0x400001c3
++		>;
++	};
++
++	pinctrl_i2c1_gpio: i2c1gpiogrp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_I2C1_SCL__GPIO5_IO14        	0x1c3
+ 			MX8MP_IOMUXC_I2C1_SDA__GPIO5_IO15        	0x1c3
+ 		>;
+ 	};
+
+-	pinctrl_i2c2_gpio: i2c2grp-gpio {
++	pinctrl_i2c2_gpio: i2c2gpiogrp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_I2C2_SCL__GPIO5_IO16        	0x1c3
+ 			MX8MP_IOMUXC_I2C2_SDA__GPIO5_IO17        	0x1c3
+ 		>;
+ 	};
+
+-	pinctrl_i2c3_gpio: i2c3grp-gpio {
++	pinctrl_i2c3_gpio: i2c3gpiogrp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_I2C3_SCL__GPIO5_IO18        	0x1c3
+ 			MX8MP_IOMUXC_I2C3_SDA__GPIO5_IO19        	0x1c3
+ 		>;
+ 	};
+
+-	pinctrl_mipi_dsi_en: mipi_dsi_en {
++	pinctrl_i2c5_gpio: i2c5gpiogrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SPDIF_TX__GPIO5_IO03        	0x1c3
++			MX8MP_IOMUXC_SPDIF_RX__GPIO5_IO04        	0x1c3
++		>;
++	};
++
++	pinctrl_mipi_dsi_en: mipidsiengrp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_GPIO1_IO08__GPIO1_IO08	0x16
+ 		>;
+ 	};
+
+-	pinctrl_pmic: pmicirq {
++	pinctrl_pmic: pmicirqgrp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03	0x41
+ 		>;
+@@ -638,7 +634,7 @@
+ 		>;
+ 	};
+
+-	pinctrl_reg_usdhc2_vmmc: regusdhc2vmmc {
++	pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_SD2_RESET_B__GPIO2_IO19	0x41
+ 		>;
+
