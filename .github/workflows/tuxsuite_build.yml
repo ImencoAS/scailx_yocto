@@ -3,7 +3,7 @@ name: Push build
 on:
   push:
     branches:
-      - master
+      - kas
 
 jobs:
   build:
@@ -26,6 +26,7 @@ jobs:
           cat << EOF > plan.json
           {
             "container": "ubuntu-22.04",
+            "artifacts": [ "$DEPLOY_DIR" ],
             "sources": {
               "kas": {
                 "url": "https://github.com/VideologyInc/scailx_yocto.git",
@@ -51,7 +52,6 @@ jobs:
 
   release:
     needs: build
-    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
       contents: write
