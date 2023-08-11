@@ -1,0 +1,13 @@
+description: ''
+jobs:
+- bake:
+    name: build-scailx
+    artifacts":
+    - "build/deploy/images"
+    sources:
+      kas:
+        branch: kas
+        url: https://github.com/VideologyInc/scailx_yocto.git
+        yaml: scailx.yaml:tuxbake_override.yaml
+name: build-scailx
+version: 1

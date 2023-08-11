@@ -1,0 +1,7 @@
+# Tuxbax expects the deploy artifacts to be in a particular position, so override the folders localconf override.
+header:
+  version: 11
+
+local_conf_header:
+  folders: |
+    DEPLOY_DIR ?= "${TMPDIR}/deploy"
