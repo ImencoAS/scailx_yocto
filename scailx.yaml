@@ -29,7 +29,7 @@ bblayers_conf_header:
 distro: scailx
 machine: scailx-imx8mp
 target:
-  - quilt-native
+  - scailx-bootstrap-image
 
 local_conf_header:
   folders: |
