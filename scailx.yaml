@@ -29,8 +29,7 @@ bblayers_conf_header:
 distro: scailx
 machine: scailx-imx8mp
 target:
-  - ca-certificates
-  - sof-imx
+  - quilt-native
 
 local_conf_header:
   folders: |
