@@ -1,0 +1,48 @@
+# ---------------------------------------------------------------------------
+# CI workflows for scailx based on pure kas workflow
+# ---------------------------------------------------------------------------
+#
+# This software is a part of Scailx
+# Copyright (C) 2023 Videology Inc
+#
+# ---------------------------------------------------------------------------
+# SPDX-License-Identifier: MIT
+# ---------------------------------------------------------------------------
+
+    name: CI
+
+    on:
+      # push:
+      pull_request:
+        types: [ labeled ]
+
+    jobs:
+      kas-ci:
+        name: Build kas/ci targets
+        runs-on: ubuntu-latest
+        # container: ghcr.io/siemens/kas/kas:latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v3
+          - name: Free Disk Space
+            uses: ./.github/workflows/free-disk-space
+          - name: Cache downloads and sstate
+            uses: actions/cache@v3
+            with:
+              key: ${{ hashFiles('nxp-imx.yaml') }}
+              path: |
+                build/downloads
+                build/sstate-cache
+          - name: Build Fast CI targets
+            env:
+                KAS_ALLOW_ROOT: yes
+            run: |
+              ./kas-container build scailx.yaml
+          - name: Upload images
+            uses: actions/upload-artifact@v2
+            if: github.ref == 'refs/heads/master'
+            with:
+              name: scailx-imx8-images
+              path: |
+                build/deploy/images/scailx-imx8mp/*uuu.zip
+                build/deploy/images/scailx-imx8mp/*.swu
