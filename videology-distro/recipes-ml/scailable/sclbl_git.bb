@@ -1,7 +1,7 @@
 SUMMARY = "Scailable AI runtime"
 LICENSE = "Proprietary"
 HOMEPAGE = "https://github.com/scailable/sclbl-tutorials"
-LIC_FILES_CHKSUM = "file://${WORKDIR}/license-agreement-03112021.pdf;md5=d918cd28f640185b2685dade2451c197"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/sclbl-beta-terms-02062020.pdf;md5=d7371ae80a39582a4cdda8d3dc7372b4"
 
 archurl = ""
 special = ""
